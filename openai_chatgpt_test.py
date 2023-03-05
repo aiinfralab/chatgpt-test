@@ -5,9 +5,15 @@ import pandas
 import openpyxl
 import pandas as pd
 import xlrd
+import argparse
+import sys
 
 ## openapi, pandas, xlrd, openpyxl
-openai.api_key=["openai 인증키"]
+
+parser = argparse.ArgumentParser(description="OpenAI Chat GPT Test")
+parser.add_argument('--key', default='', help='open.ai에서 발급받은 인증키')
+args = parser.parse_args()
+openai.api_key= args.key
 
 def request_to_chatgpt(req_string):
 
@@ -36,8 +42,12 @@ if __name__ == "__main__":
 
     for i in range(excel_df[['request']].size):
         print(excel_df['request'].loc[i])
-        answer = request_to_chatgpt(excel_df['request'].loc[i])
-        excel_df['response'].loc[i] = answer
+        try:
+            answer = request_to_chatgpt(excel_df['request'].loc[i])
+            excel_df['response'].loc[i] = answer
+        except openai.error.AuthenticationError:
+            print("open.ai에서 발급받은 인증키를 넣어주세요.")
+            sys.exit(1)
 
     excel_df.to_excel(file_url, sheet_name='Sheet1', index=False)
 
