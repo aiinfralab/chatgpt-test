@@ -10,6 +10,6 @@ request.xlsx파일 >> request 컬럼에 질문내용을 적은 후,
 ```
 $ pip install -r requirements.txt
 
-$ python openai_chatgpt_test.py
+$ python openai_chatgpt_test.py --key [openai key]
 
 ```
