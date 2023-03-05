@@ -7,7 +7,7 @@ import pandas as pd
 import xlrd
 
 ## openapi, pandas, xlrd, openpyxl
-openai.api_key="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"
+openai.api_key=["openai 인증키"]
 
 def request_to_chatgpt(req_string):
 
